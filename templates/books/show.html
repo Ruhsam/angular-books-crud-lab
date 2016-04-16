@@ -1,6 +1,13 @@
-<h2>{{booksShowCtrl.book.title}}</h2>
+<h2>{{vmShow.book.title}}</h2>
 <hr>
 <div class="row">
+	<img ng-src="{{vmShow.book.image}}"></img>
+	<p>
+	{{vmShow.book.title}} </br>
+	{{vmShow.book.author}} </br>
+	{{vmShow.book.releaseDate}}
+	</p>
+
 	<!-- Here, add the display of the book info,
        the buttons for editing or deleting,
        the form and buttons that will show if you

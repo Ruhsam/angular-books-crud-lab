@@ -1,8 +1,8 @@
 <h2>Library Books</h2>
-<div ng-repeat="book in vm.tempData.books">
+<div ng-repeat="book in vm.books">
    <img ng-src="{{book.image}}"></img>
    <p>
-   {{book.title}} </br>
+   <a ng-href = "/books/{{book._id}}">{{book.title}}</a> </br>
    {{book.author}} </br>
    {{book.releaseDate}}
    </p>

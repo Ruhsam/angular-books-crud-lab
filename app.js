@@ -14,7 +14,11 @@ function config (  $routeProvider,   $locationProvider  )  {
       controller:  "BooksIndexController",
       controllerAs: "vm"
     })
-    /* Include the additional route here! */
+   .when('/books/:id', {
+      templateUrl: "/templates/books/show.html",
+      controller:  "BooksShowController",
+      controllerAs: "vmShow"
+   })
     .otherwise({
       redirectTo: '/'
     });
