@@ -1,13 +1,19 @@
 <h2>{{vmShow.book.title}}</h2>
 <hr>
 <div class="row">
-	<img ng-src="{{vmShow.book.image}}"></img>
+	<img ng-src="{{vmShow.book.image}}" height="100%" width="100%"></img>
 	<p>
-	{{vmShow.book.title}} </br>
-	{{vmShow.book.author}} </br>
-	{{vmShow.book.releaseDate}}
+	<div ng-hide="vmShow.editing">{{vmShow.book.title}} </br> </div>
+	<input ng-show="vmShow.editing" ng-model="vmShow.tempParams.title" type="text" class="form-control input-md">
+	<div ng-hide="vmShow.editing">{{vmShow.book.author}} </br></div>
+	<input ng-show="vmShow.editing" ng-model="vmShow.tempParams.author" type="text" class="form-control input-md">
+	<div ng-hide="vmShow.editing">{{vmShow.book.releaseDate}}</div>
+	<input ng-show="vmShow.editing" ng-model="vmShow.tempParams.releaseDate" type="text" class="form-control input-md">
 	</p>
-
+	<button ng-hide="vmShow.editing" ng-click="vmShow.edit()">Edit Book</button>
+	<button ng-show="vmShow.editing" ng-click="vmShow.save()">Save</button>
+	<button ng-hide="vmShow.editing"ng-click="vmShow.deleteBook()">Delete!</button>
+	<button ng-show="vmShow.editing" ng-click="vmShow.cancel()">Cancel</button>
 	<!-- Here, add the display of the book info,
        the buttons for editing or deleting,
        the form and buttons that will show if you

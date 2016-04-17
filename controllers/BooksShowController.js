@@ -1,19 +1,65 @@
 angular.module('libraryApp')
-  .controller('BooksShowController', BooksShowController);
+.controller('BooksShowController', BooksShowController);
 
 BooksShowController.$inject=['$http', '$routeParams', '$location'];
 function BooksShowController($http, $routeParams, $location) {
-  var vmShow = this;
-  console.log($routeParams);
-  function testSuccess(res){
-     vmShow.book = res.data;
-     console.log(res.data);
-  }
-  function testError(err){
-     console.log('Dun Broke!!');
-  }
-  $http.get('https://super-crud.herokuapp.com/books/' + $routeParams.id).then(testSuccess, testError);
+   var vmShow = this;
+   vmShow.log=log;
+   vmShow.edit=edit;
+   vmShow.editing=false;
+   vmShow.save=save;
+   vmShow.cancel=cancel;
 
+   /////Delete book//////
+   vmShow.deleteBook=deleteBook;
+   console.log($routeParams);
+   function testSuccess(res){
+      vmShow.book = res.data;
+      console.log(res.data);
+   }
+   function testError(err){
+      console.log('Dun Broke!!');
+   }
+   function deleteSuccess(res){
+      $location.path("https://super-crud.herokuapp.com/books");
+      console.log('button pressed!');
+   }
+   function deleteBook(){
+      $http.delete('https://super-crud.herokuapp.com/books/' + $routeParams.id).then(deleteSuccess, testError);
+   }
+   function putSuccess(){
+      $location.path("https://super-crud.herokuapp.com/books");
+   }
+   function originalData(){
+      vmShow.tempParams= {
+      title:vmShow.book.title,
+      author:vmShow.book.author,
+      releaseDate:vmShow.book.releaseDate,
+      image:vmShow.book.image
+   };
+   }
+
+   $http.get('https://super-crud.herokuapp.com/books/' + $routeParams.id).then(testSuccess, testError);
+
+   function log(){
+      console.log("it clicked delete!!!");
+   }
+   function edit(){
+      vmShow.editing=true;
+      originalData();
+      console.log('edit button pressed');
+   }
+   function save(){
+      $http.put('https://super-crud.herokuapp.com/books/' + $routeParams.id, vmShow.tempParams).then(putSuccess, testError);
+      vmShow.editing=false;
+      console.log('save button pressed');
+
+   }
+   function cancel(){
+
+      vmShow.editing=false;
+      console.log('canceled that shizzle!');
+   }
 //   vmShow.tempData = {
 // books: [
 // {
